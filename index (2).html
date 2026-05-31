@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Kitchen | Dine-In, Buffet & Premium Catering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Poppins:wght=300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- RESET & GLOBAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --gold: #d4af37;
+            --gold-hover: #f3cf65;
+            --dark-bg: #0b0c10;
+            --card-bg: #1f2833;
+            --light-text: #c5a880;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* --- STICKY NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(11, 12, 16, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 400;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold);
+        }
+
+        .cta-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: var(--gold);
+            color: var(--dark-bg);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 64px;
+            color: var(--white);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #c5a880;
+            max-width: 600px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* --- THREE PILLARS (SPLIT CARDS) --- */
+        .pillars-container {
+            display: flex;
+            gap: 25px;
+            width: 85%;
+            max-width: 1200px;
+        }
+
+        .pillar-card {
+            flex: 1;
+            background: rgba(31, 40, 51, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 35px 25px;
+            border-radius: 8px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            background: rgba(31, 40, 51, 0.9);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .pillar-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .pillar-card p {
+            font-size: 14px;
+            color: #a8b2c1;
+            line-height: 1.6;
+        }
+
+        /* --- SECTION STRUCTURE --- */
+        section {
+            padding: 100px 8%;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.05);
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 38px;
+            color: var(--white);
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+            margin: 15px auto 0;
+        }
+
+        /* --- INTERACTIVE MENU (DINE-IN) --- */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 45px;
+        }
+
+        .tab-btn {
+            background: #171c24;
+            color: var(--white);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--gold);
+            color: var(--dark-bg);
+            border-color: var(--gold);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+
+        .menu-item:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .menu-info {
+            padding: 22px;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .menu-header h4 {
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-price {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        .menu-tag {
+            display: inline-block;
+            font-size: 11px;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold);
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin-top: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* --- BUFFET SCHEDULE --- */
+        .buffet-box {
+            background: linear-gradient(135deg, #1f2833 0%, #11171f 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .buffet-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .buffet-row:last-child {
+            border-bottom: none;
+        }
+
+        .buffet-day {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--gold);
+        }
+
+        .buffet-details {
+            text-align: right;
+        }
+
+        .buffet-price {
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        /* --- CATERING CALCULATOR --- */
+        .catering-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .calc-box {
+            background: #171c24;
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #c5a880;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: var(--dark-bg);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--white);
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .form-group select:focus, .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .calc-result {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px dashed var(--gold);
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .calc-result h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .calc-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* --- RESERVATIONS --- */
+        .reserve-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gold);
+            color: var(--dark-bg);
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--gold-hover);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #060709;
+            padding: 60px 8% 30px;
+            font-size: 14px;
+            color: #7a8593;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h5 {
+            font-family: 'Cinzel', serif;
+            color: var(--white);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Responsive Setup */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 42px; }
+            .pillars-container { flex-direction: column; }
+            .catering-split { grid-template-columns: 1fr; }
+            header { padding: 15px 4%; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">BEYOND KITCHEN</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#menu">Dine-In Menu</a>
+            <a href="#buffet">Buffet</a>
+            <a href="#catering">Catering</a>
+        </nav>
+        <button class="cta-btn" onclick="window.location.href='#reserve'">Book A Table</button>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>BEYOND <span>KITCHEN</span></h1>
+        <p>An exceptional culinary destination delivering unforgettable dining atmospheres, weekend grand feasts, and luxury event catering.</p>
+        
+        <div class="pillars-container">
+            <a href="#menu" class="pillar-card">
+                <h3>Dine-In</h3>
+                <p>Enjoy vibrant a la carte flavors, warm hospitality, and a beautifully curated setting perfect for families and gatherings.</p>
+            </a>
+            <a href="#buffet" class="pillar-card">
+                <h3>Buffet Line</h3>
+                <p>Indulge in premium weekend spreads featuring diverse multi-cuisine live interactive cooking stations.</p>
+            </a>
+            <a href="#catering" class="pillar-card">
+                <h3>Luxury Catering</h3>
+                <p>From custom private dynamic drop-offs to full-scale event production setups tailored completely to you.</p>
+            </a>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2 class="section-title">The Culinary Experience</h2>
+        
+        <div class="menu-tabs">
+            <button class="tab-btn active" onclick="filterMenu('all', this)">Full Menu</button>
+            <button class="tab-btn" onclick="filterMenu('rice', this)">Rice Specialities</button>
+            <button class="tab-btn" onclick="filterMenu('chinese', this)">Chinese Curries</button>
+            <button class="tab-btn" onclick="filterMenu('breads', this)">Indian Breads</button>
+            <button class="tab-btn" onclick="filterMenu('south-indian', this)">South Indian Corner</button>
+            <button class="tab-btn" onclick="filterMenu('curries', this)">Traditional Curries</button>
+        </div>
+
+        <div class="menu-grid" id="menu-container">
+            
+            <div class="menu-item rice">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Veg Biryani</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Rice Speciality</span>
+                </div>
+            </div>
+            <div class="menu-item rice">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Paneer Tikka Biryani</h4><span class="menu-price">2.000 OMR</span></div>
+                    <span class="menu-tag">Rice Speciality</span>
+                </div>
+            </div>
+            <div class="menu-item rice">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Steamed Basmati Rice</h4><span class="menu-price">0.800 OMR</span></div>
+                    <span class="menu-tag">Rice Speciality</span>
+                </div>
+            </div>
+            <div class="menu-item rice">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Biryani Rice</h4><span class="menu-price">1.000 OMR</span></div>
+                    <span class="menu-tag">Rice Speciality</span>
+                </div>
+            </div>
+            <div class="menu-item rice">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Lemon Rice</h4><span class="menu-price">1.200 OMR</span></div>
+                    <span class="menu-tag">Rice Speciality</span>
+                </div>
+            </div>
+            <div class="menu-item rice">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Jeera Rice</h4><span class="menu-price">1.000 OMR</span></div>
+                    <span class="menu-tag">Rice Speciality</span>
+                </div>
+            </div>
+            <div class="menu-item rice">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Dal Palak Khichdi</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Rice Speciality</span>
+                </div>
+            </div>
+            <div class="menu-item rice">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Curd Rice</h4><span class="menu-price">1.200 OMR</span></div>
+                    <span class="menu-tag">Rice Speciality</span>
+                </div>
+            </div>
+
+            <div class="menu-item chinese">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Str Fry Veg in Hot Garlic Sauce</h4><span class="menu-price">1.800 OMR</span></div>
+                    <span class="menu-tag">Chinese Wok Curry</span>
+                </div>
+            </div>
+            <div class="menu-item chinese">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Veg Manchurian Gravy</h4><span class="menu-price">1.800 OMR</span></div>
+                    <span class="menu-tag">Chinese Wok Curry</span>
+                </div>
+            </div>
+            <div class="menu-item chinese">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Baby Corn Manchurian Gravy</h4><span class="menu-price">2.000 OMR</span></div>
+                    <span class="menu-tag">Chinese Wok Curry</span>
+                </div>
+            </div>
+            <div class="menu-item chinese">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Mushroom Chilli Gravy</h4><span class="menu-price">1.800 OMR</span></div>
+                    <span class="menu-tag">Chinese Wok Curry</span>
+                </div>
+            </div>
+            <div class="menu-item chinese">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Paneer Chilli Gravy</h4><span class="menu-price">2.300 OMR</span></div>
+                    <span class="menu-tag">Chinese Wok Curry</span>
+                </div>
+            </div>
+            <div class="menu-item chinese">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Paneer Schezwan</h4><span class="menu-price">2.300 OMR</span></div>
+                    <span class="menu-tag">Chinese Wok Curry</span>
+                </div>
+            </div>
+            <div class="menu-item chinese">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Ginger Paneer</h4><span class="menu-price">2.300 OMR</span></div>
+                    <span class="menu-tag">Chinese Wok Curry</span>
+                </div>
+            </div>
+            <div class="menu-item chinese">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Kung Pao Paneer</h4><span class="menu-price">2.300 OMR</span></div>
+                    <span class="menu-tag">Chinese Wok Curry</span>
+                </div>
+            </div>
+
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Tandoori Roti (Plain / Butter)</h4><span class="menu-price">0.200 / 0.300 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Tandoori Naan (Plain / Butter / Garlic)</h4><span class="menu-price">0.300 / 0.400 / 0.400 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Tandoori Naan (Butter Garlic / Cheese)</h4><span class="menu-price">0.400 / 0.800 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Tandoori Kulcha (Plain / Butter / Masala)</h4><span class="menu-price">0.300 / 0.400 / 0.600 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Tandoori Paratha (Plain / Pudina / Aloo / Paneer)</h4><span class="menu-price">0.300 / 0.300 / 0.400 / 0.800 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Tawa Chapati</h4><span class="menu-price">0.150 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Tawa Paratha</h4><span class="menu-price">0.200 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Stuffed Aloo Paratha</h4><span class="menu-price">0.600 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+            <div class="menu-item breads">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Stuffed Aloo Gobi Paratha</h4><span class="menu-price">0.600 OMR</span></div>
+                    <span class="menu-tag">Indian Bread</span>
+                </div>
+            </div>
+
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Plain Dosa</h4><span class="menu-price">0.500 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Masala Dosa</h4><span class="menu-price">0.800 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Mysore Sada Dosa</h4><span class="menu-price">0.600 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Mysore Masala Dosa</h4><span class="menu-price">0.900 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Ghee Roast Dosa</h4><span class="menu-price">0.800 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Cheese Sada Dosa</h4><span class="menu-price">0.800 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Cheese Masala Dosa</h4><span class="menu-price">0.900 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Butter Masala Dosa</h4><span class="menu-price">0.900 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Plain Uthappam</h4><span class="menu-price">0.500 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Tomato Uthappam</h4><span class="menu-price">0.700 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Onion Uthappam</h4><span class="menu-price">0.700 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Medu Vada</h4><span class="menu-price">0.800 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Idli</h4><span class="menu-price">0.600 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+            <div class="menu-item south-indian">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Idli Vada</h4><span class="menu-price">0.700 OMR</span></div>
+                    <span class="menu-tag">South Indian</span>
+                </div>
+            </div>
+
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Aloo Gobi</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Aloo Palak</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Aloo Mutter</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Veg Kadai</h4><span class="menu-price">1.700 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Veg Kolhapuri</h4><span class="menu-price">1.700 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Veg Makhanwala</h4><span class="menu-price">1.800 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Veg Kofta</h4><span class="menu-price">1.800 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Mattar Methi Malai</h4><span class="menu-price">1.900 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Bhindi Do Payaza</h4><span class="menu-price">1.700 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Mushroom Masala</h4><span class="menu-price">1.800 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Methi Chaman Hariyali</h4><span class="menu-price">2.000 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Rajma Masala</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Chana Masala</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Kadai Paneer</h4><span class="menu-price">2.000 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Paneer Butter Masala</h4><span class="menu-price">2.000 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Paneer Tikka Masala</h4><span class="menu-price">2.100 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Paneer Lajawab</h4><span class="menu-price">2.000 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Lasooni Palak Paneer</h4><span class="menu-price">2.100 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Shahi Paneer</h4><span class="menu-price">2.100 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Dal Makhani</h4><span class="menu-price">1.800 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Chana Dal</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Dal Tadka</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+            <div class="menu-item curries">
+                <div class="menu-info">
+                    <div class="menu-header"><h4>Dal Fry</h4><span class="menu-price">1.600 OMR</span></div>
+                    <span class="menu-tag">Traditional Curry</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="buffet">
+        <h2 class="section-title">The Feast Stand Buffet</h2>
+        <div class="buffet-box">
+            <div class="buffet-row">
+                <div class="buffet-day">Friday Night Seafood Extravaganza</div>
+                <div class="buffet-details">
+                    <div class="buffet-price">17.500 OMR <small style="font-weight:300; color:#a8b2c1;">per guest</small></div>
+                    <small style="color: #7a8593;">6:00 PM - 11:00 PM</small>
+                </div>
+            </div>
+            <div class="buffet-row">
+                <div class="buffet-day">Saturday Premium Multi-Cuisine Feast</div>
+                <div class="buffet-details">
+                    <div class="buffet-price">14.500 OMR <small style="font-weight:300; color:#a8b2c1;">per guest</small></div>
+                    <small style="color: #7a8593;">1:00 PM - 10:00 PM</small>
+                </div>
+            </div>
+            <div class="buffet-row">
+                <div class="buffet-day">Grand Royal Sunday Brunch</div>
+                <div class="buffet-details">
+                    <div class="buffet-price">13.000 OMR <small style="font-weight:300; color:#a8b2c1;">per guest</small></div>
+                    <small style="color: #7a8593;">11:00 AM - 4:00 PM</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="catering">
+        <h2 class="section-title">Bespoke Event Catering</h2>
+        <div class="catering-split">
+            <div>
+                <h3 style="font-family:'Cinzel', serif; font-size:24px; color:var(--gold); margin-bottom:15px;">Flawless Execution, Anywhere.</h3>
+                <p style="color:#a8b2c1; line-height:1.7; margin-bottom:20px;">We take the signature flavors of Beyond Kitchen out into the field to power your weddings, corporate milestones, or private home gatherings.</p>
+                <p style="color:#a8b2c1; line-height:1.7;">Our standard packages feature complete equipment logistics setups, trained service staff uniforms, and custom tier menu configurations engineered to remove event stress completely.</p>
+            </div>
+            
+            <div class="calc-box">
+                <h3 style="margin-bottom:20px; font-size:18px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">Instant Estimate Matrix</h3>
+                <div class="form-group">
+                    <label>Select Service Style</label>
+                    <select id="calc-service" onchange="calculateCateringPrice()">
+                        <option value="9.500">Gourmet Drop-Off Box Tray (9.500 OMR/guest)</option>
+                        <option value="17.000" selected>Standard Premium Buffet Setup (17.000 OMR/guest)</option>
+                        <option value="28.500">The Grand Luxury Live-Station Setup (28.500 OMR/guest)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Expected Guest Count</label>
+                    <input type="number" id="calc-guests" value="50" min="10" oninput="calculateCateringPrice()">
+                </div>
+                <div class="calc-result">
+                    <h4>Estimated Package Valuation</h4>
+                    <div class="calc-price" id="total-catering-price">850.000 OMR</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reserve">
+        <h2 class="section-title">Secure An Experience</h2>
+        <form class="reserve-form" onsubmit="event.preventDefault(); alert('Reservation submitted successfully!');">
+            <div class="form-group">
+                <label>Your Full Name</label>
+                <input type="text" placeholder="e.g., Ahmed Al-Balushi" required>
+            </div>
+            <div class="form-group">
+                <label>Total Guests</label>
+                <input type="number" value="2" min="1" required>
+            </div>
+            <button type="submit" class="submit-btn">Finalize Request</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>BEYOND KITCHEN</h5>
+                <p>A flagship culinary milestone engineered to bring elite dining craft, luxury events framing, and meticulous host logic under one standard.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Operating Hours</h5>
+                <p>Weekdays: 12:00 PM - 11:00 PM</p>
+                <p>Weekends: 11:00 AM - Midnight</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Beyond Kitchen. All Luxury Formats Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Menu Filter Logic
+        function filterMenu(category, button) {
+            // Update active tab styling
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            button.classList.add('active');
+
+            // Show/Hide menu items based on class category
+            const items = document.querySelectorAll('.menu-item');
+            items.forEach(item => {
+                if (category === 'all') {
+                    item.style.display = 'block';
+                } else if (item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Catering Cost Calculator Logic
+        function calculateCateringPrice() {
+            const pricePerGuest = parseFloat(document.getElementById('calc-service').value) || 0;
+            const totalGuests = parseInt(document.getElementById('calc-guests').value) || 0;
+            
+            const totalPrice = pricePerGuest * totalGuests;
+            
+            // Displays with 3 decimal places matching Omani Rial structure (OMR)
+            document.getElementById('total-catering-price').innerText = totalPrice.toFixed(3) + " OMR";
+        }
+
+        // Initialize calculator price calculation on load
+        window.onload = function() {
+            calculateCateringPrice();
+        };
+    </script>
+
+</body>
+</html>
